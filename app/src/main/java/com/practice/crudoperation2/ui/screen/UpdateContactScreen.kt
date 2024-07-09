@@ -1,5 +1,6 @@
 package com.practice.crudoperation2.ui.screen
 
+import android.widget.EditText
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.SemanticsProperties.EditableText
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -88,7 +90,7 @@ fun UpdateContactScreen(
                     placeholder = { Text(text = contact.firstName) },
                     value = state.updateFirstname ?: contact.firstName,
                     onValueChange = {
-                        event(ContactEvent.SetUpdateFirstName(it))
+                         state.contact.first().firstName = event(ContactEvent.SetUpdateFirstName(it)).toString()
                     },
                     imeAction = ImeAction.Next
                 )

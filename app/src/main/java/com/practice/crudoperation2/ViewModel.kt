@@ -99,9 +99,9 @@ class ViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isUpdatingContact = false,
-                        updateFirstname = "",
-                        updateLastname = "",
-                        updatePhoneNumber = "",
+                        updateFirstname = null,
+                        updateLastname = null,
+                        updatePhoneNumber = null,
                     )
                 }
             }
@@ -144,7 +144,7 @@ class ViewModel @Inject constructor(
             is ContactEvent.SetUpdateFirstName -> {
                 _state.update {
                     it.copy(
-                        updateFirstname = event.updateFirstName?: contact.value.first().firstName
+                        updateFirstname = event.updateFirstName
                     )
                 }
             }
@@ -205,6 +205,7 @@ class ViewModel @Inject constructor(
                     )
                 }
             }
+
         }
     }
 
@@ -214,7 +215,10 @@ class ViewModel @Inject constructor(
             _contact.value = contacts
             _state.update {
                 it.copy(
-                    contact = contacts
+                    contact = contacts,
+                    isUpdatingContact = false,
+                    isDeletingContact = false,
+                    isAddingContact = false
                 )
             }
         }

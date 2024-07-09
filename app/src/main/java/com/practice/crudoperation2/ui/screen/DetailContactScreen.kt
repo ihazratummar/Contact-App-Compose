@@ -53,7 +53,10 @@ fun DetailContactScreen(
             TopAppBar(
                 title = { Text(text = "Contact Details") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                        event(ContactEvent.RefreshContacts)
+                    }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.ArrowBack,
                             contentDescription = null
@@ -68,7 +71,6 @@ fun DetailContactScreen(
                     }
                     IconButton(onClick = {
                         event(ContactEvent.ShowDeleteDialog)
-                        event(ContactEvent.RefreshContacts)
                     }) {
                         Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
                     }
@@ -125,12 +127,13 @@ fun DetailContactScreen(
 
         }
         if (state.isDeletingContact) {
-            Column (
+            Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 DeleteContactDialog(
+                    modifier = Modifier.padding(10.dp),
                     onDismiss = {
                         event(ContactEvent.HideDeleteDialog)
                     },
@@ -171,7 +174,7 @@ private fun NameWithProfileCard(
         Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "${contact.firstName} ${contact.lastName}",
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold
         )
     }
